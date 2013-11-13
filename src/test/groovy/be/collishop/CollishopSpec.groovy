@@ -4,181 +4,110 @@ import java.awt.MenuItem;
 import geb.spock.*
 
 class CollishopSpec extends GebReportingSpec {
-//	final String EUR = "\u20AC"
-//	def setup() {
-//		browser.config.autoClearCookies = false
-//	 }
-//	
-	def "search and buy a smartphone"(){
+
+	def "buying process"(){
 		given: "user types Collishop address"
 		to CollishopHomePage
-		
+
 		expect: "user lands on Collishop homepage"
 		at CollishopHomePage
-		
-		and: "scroll the page"
-		scrolldown()
-		
+
 		when: "user selects subcategory from the menu"
-		selectCategory "Sport, Reizen & Vrije tijd", "Fotografie & Video"
+		selectCategory "Gaming & Multimedia", "Gsm's & Smartphones"
 
 		then: "category page opens"
 		at CategoryPage
 		
-		when: "user selects subcategory from the menu"
-		selectCategory "Huishouden & Opbergen", "Strijken & Naaien"
-
+		when: "user selects 'Prijs' menu entry"
+		unfoldMenuItem "Prijs"
+		
+		then: "price range selection becomes available"
+		at CategoryPageWithPriceListing
+		
+		when: "user selects 'Tussen € 100 en € 200' menu entry"
+		openSubCategoryWithPrice(between: 100, and: 200)
+		
+		then: "user sees that results are filtered by price"
+		at CategoryPageWithActiveFilter
+		
+		when: "user selects Huawei smartphone G525 Ascend"
+		openProductDetailsPage "Huawei smartphone G525 Ascend"
+		
+		then: "product details page is opened"
+		at ProductDetailsPage
+		
+		when: "user changes product color"
+		selectProductColor "zwart"
+		
+		then: "product details page is opened"
+		at ProductDetailsPage
+		
+		when: "user clicks on Fuji digitaal fototoestel Finepix JX500"
+		validateProductThumbnails()
+		
+		and: "user clicks on Vergelijken"
+		clickOnCompareButton "Vergelijken"
+		
+		then: "product compare page is opened"
+		at ProductComparePage
+		
+		when: "user clicks on number of Compacte smartphone"
+		smartphoneButton "Smartphones"
+		
 		then: "category page opens"
 		at CategoryPage
 		
-		when: "user want to search for phones"
-		searchItem("smartphone")
+		when: "user selects 'Prijs' menu entry"
+		unfoldMenuItem "Prijs"
 		
-		then: "look at the results"
-		at SearchPage
+		then: "price range selection becomes available"
+		at CategoryPageWithPriceListing
 		
-		and: "user click on search result"
-		firstResultLink1.click()
+		when: "user selects 'Tussen € 100 en € 200' menu entry"
+		openSubCategoryWithPrice(between: 100, and: 200)
 		
-		and: "select the phone type"
-		selectRes()
+		then: "user sees that results are filtered by price"
+		at CategoryPageWithActiveFilter
 		
-		and: "click on phone dimension 1"
-		elems.click()
+		then: "user clicks on subcategory page"
+		at SubCategoryPage
 		
-		and: "click on phone dimension 2"
-		elems1.click()
+		when: "user unfolds Olympus digitaal fototoestel VG-180 menu entry"
+		unfoldProductInfo()
+					
+		and:  "user compares Olympus digitaal fototoestel VG-180"
+		compareProduct()
 		
-		and: "click on phone dimension 3"
-		elems2.click()
+		then: "product details page is opened"
+		at ProductDetailsPage
 		
-		and: "click on phone dimension 4"
-		elems3.click()
+		when: "user changes product color"
+		selectProductColorOnModalWindow "wit"
 		
-		and: "click on phone dimension 5"
-		elems4.click()
-				
-		when: "user press add cart"
-		addCartLink().click()
+		and: "user clicks on Vergelijken"
+		clickOnCompareButtonOnModalWindow()
 		
-		then: "cart page opens"
-		waitFor{at CartPage}
+		then: "product compare page is opened"
+		at ProductComparePage
+		
+		when: "user clicks on button which shows all criteria"
+		clickOnShowAllCriteriaButton()
+		
+		then: "user deletes last choosen product"
+		productDeleted()
+		
+		when: "user unfolds LG wit"
+		unfoldProductInfoOnComparePage()
+		
+		and: "user adds  LG wit"
+		addProductToBasket()
+		
+		then: "basket page is opened"
+		at BasketPage
+		
+		and: "user put product in the basket"
+		to BasketPage
+		
 	}
-	
-//	def "search an item"(){
-//		given: "user types Collishop address"
-//		to CollishopHomePage
-//
-//		expect: "user lands on Collishop homepage"
-//		at CollishopHomePage
-//
-//		when: "user search for books"
-//		searchItem("books")
-//
-//		then: "look at the results"
-//		at SearchPage
-//		
-//		and: "click on first result"
-//		addSearchItem()
-//
-//		then: "user lands at cart Page"
-//		waitFor{at CartPage}
-//	}
-//
-//	def "adding a product to the shopping cart 01"() {
-//		given: "user types Collishop address"
-//		to CollishopHomePage
-//
-//		expect: "user lands on Collishop homepage"
-//		at CollishopHomePage
-//
-//		when: "user selects subcategory from the menu"
-//		selectCategory "Sport, Reizen & Vrije tijd", "Fotografie & Video"
-//
-//		then: "category page opens"
-//		at CategoryPage
-//		
-//		when: "click on first result"
-//		waitFor {addItem()}
-//
-//		then: "user lands at category view Page"
-//		waitFor{at CartPage}
-//	}
-//	
-//	def "adding a home appliance item to cart"(){
-//		given: "user types Collishop address"
-//		to CollishopHomePage
-//
-//		expect: "user lands on Collishop homepage"
-//		at CollishopHomePage
-//
-//		when: "user selects subcategory from the menu"
-//		selectCategory "Huishouden & Opbergen", "Strijken & Naaien"
-//
-//		then: "category page opens"
-//		at CategoryPage
-//		
-//		when: "click on first result"
-//		waitFor {addItem()}
-//
-//		then: "user lands at category view Page"
-//		waitFor{at CartPage}
-//	}
-//	
-//	def "search for some mobiles"(){
-//		given: "user types Collishop address"
-//		to CollishopHomePage
-//
-//		expect: "user lands on Collishop homepage"
-//		at CollishopHomePage
-//
-//		when: "user selects subcategory from the menu"
-//		selectCategory "Gaming & Multimedia", "Gsm's & Smartphones"
-//
-//		then: "category page opens"
-//		at CategoryPage
-//		
-//		and: "look at the phones"
-//		scrolldown()
-//	}
-//	
-//	def "adding Kitchen item into cart"(){
-//		given: "user types Collishop address"
-//		to CollishopHomePage
-//
-//		expect: "user lands on Collishop homepage"
-//		at CollishopHomePage
-//
-//		when: "user selects subcategory from the menu"
-//		selectCategory "Koken & Tafelen", "Kookboeken"
-//
-//		then: "category page opens"
-//		at CategoryPage
-//		
-//		when: "click on first result"
-//		waitFor {addItem()}
-//
-//		then: "user lands at category view Page"
-//		waitFor{at CartPage}
-//	}
-	
-//	def "adding mobile to the cart for chrome"() {
-//		given: "user types Collishop address"
-//		to CollishopHomePage
-//
-//		expect: "user lands on Collishop homepage"
-//		at CollishopHomePage
-//
-//		when: "user selects subcategory from the menu"
-//		selectCategory "Gaming & Multimedia", "Gsm's & Smartphones"
-//
-//		then: "category page opens"
-//		at CategoryPage
-//		
-//		when: "click on first result"
-//		addItem()
-//
-//		then: "user lands at category view Page"
-//		at CartPage
-//	}
+
 }
