@@ -42,7 +42,7 @@ class CollishopSpec extends GebReportingSpec {
 		then: "product details page is opened"
 		at ProductDetailsPage
 		
-		when: "user clicks on Fuji digitaal fototoestel Finepix JX500"
+		when: "user clicks on Thumbnails to closely look at phone"
 		validateProductThumbnails()
 		
 		and: "user clicks on Vergelijken"
@@ -72,10 +72,10 @@ class CollishopSpec extends GebReportingSpec {
 		then: "user clicks on subcategory page"
 		at SubCategoryPage
 		
-		when: "user unfolds Olympus digitaal fototoestel VG-180 menu entry"
+		when: "user unfolds LG smartphone E460 Optimus L5 II menu entry"
 		unfoldProductInfo()
 					
-		and:  "user compares Olympus digitaal fototoestel VG-180"
+		and:  "user click on In winkelmandje"
 		compareProduct()
 		
 		then: "product details page is opened"
@@ -93,7 +93,7 @@ class CollishopSpec extends GebReportingSpec {
 		when: "user clicks on button which shows all criteria"
 		clickOnShowAllCriteriaButton()
 		
-		then: "user deletes last choosen product"
+		then: "user deletes Huawei smartphone G525 Ascend"
 		productDeleted()
 		
 		when: "user unfolds LG wit"
