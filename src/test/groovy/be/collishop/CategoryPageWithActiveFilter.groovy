@@ -8,6 +8,6 @@ class CategoryPageWithActiveFilter extends CategoryPage {
 	}
 	
 	static content = {
-		activeFilter(wait: true) {$(".activeFilters>ul>li~li>span")}
+		activeFilter(wait:true) {$(".activeFilters>ul>li~li>span")}
 	}
 }

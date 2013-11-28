@@ -11,7 +11,7 @@ class ProductDetailsPage extends CollishopPage {
 
     static content = {
         addToCartButton(to: CartPage, wait: true) { $(".lnkBuy.buttonPrimary>a") }
-		productColor(wait: true) { $("#frmProdBasket-prodList") }
+		productColor(wait: 12) { $("#frmProdBasket-prodList") }
 		compareButton(to: ProductComparePage, wait: true) { name -> $(".lnkCompare.buttonSecondary>a", text: name) }
 		compareButtonOnModalWindow(to: ProductComparePage, wait: true) { $(".lnkCompare.buttonPrimary>a") }		
 		buyButton(wait: true) { name -> $(".lnkBuy.buttonPrimary>a") }
@@ -34,9 +34,9 @@ class ProductDetailsPage extends CollishopPage {
 		// iterate through the collection
 		for(item in items) {
 			// and check what element contains given text										
-			String stringProductItem = new String($(item).@src)									
-			indexProductItem = stringProductItem.lastIndexOf("/")						
-			item.click()
+			//String stringProductItem = new String($(item).@src)									
+			//indexProductItem = stringProductItem.lastIndexOf("/")						
+			//item.click()
 			String stringActiveProductVisibility = new String($(productActiveVisibility).@src)
 			indexActiveProductVisibility = stringActiveProductVisibility.lastIndexOf("/")								
 			assert stringActiveProductVisibility.substring(indexActiveProductVisibility) == stringProductItem.substring(indexProductItem)																						

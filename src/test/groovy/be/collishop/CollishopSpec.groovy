@@ -28,7 +28,7 @@ class CollishopSpec extends GebReportingSpec {
 		openSubCategoryWithPrice(between: 100, and: 200)
 		
 		then: "user sees that results are filtered by price"
-		at CategoryPageWithActiveFilter
+		waitFor {at CategoryPageWithActiveFilter}
 		
 		when: "user selects Huawei smartphone G525 Ascend"
 		openProductDetailsPage "Huawei smartphone G525 Ascend"
@@ -49,7 +49,7 @@ class CollishopSpec extends GebReportingSpec {
 		clickOnCompareButton "Vergelijken"
 		
 		then: "product compare page is opened"
-		at ProductComparePage
+		waitFor {at ProductComparePage}
 		
 		when: "user clicks on number of Compacte smartphone"
 		smartphoneButton "Smartphones"
@@ -79,7 +79,7 @@ class CollishopSpec extends GebReportingSpec {
 		compareProduct()
 		
 		then: "product details page is opened"
-		at ProductDetailsPage
+		waitFor {at ProductDetailsPage}
 		
 		when: "user changes product color"
 		selectProductColorOnModalWindow "wit"
